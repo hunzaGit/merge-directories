@@ -3,6 +3,7 @@
 - [Merge Directories](#merge-directories)
    * [Features](#features)
    * [Installation](#installation)
+   * [Requirements](#requirements)
    * [Usage](#usage)
       + [Syntax](#syntax)
       + [Options](#options)
@@ -17,7 +18,6 @@
    * [Script output](#script-output)
       + [Normal output](#normal-output)
       + [Debug mode output (-d)](#debug-mode-output-d)
-   * [Requirements](#requirements)
    * [Validations](#validations)
    * [Warnings](#warnings)
    * [Troubleshooting](#troubleshooting)
@@ -66,6 +66,24 @@ curl -O https://github.com/hunzaGit/merge-directories/main/merge_dirs.sh
 chmod +x merge_dirs.sh
 ```
 
+
+## Requirements
+
+- **Bash** 3.2+ (included in macOS by default)
+- Read permissions on source directories
+- Write permissions on destination location
+- Unusual characters such as “[”, “]” are not supported. Valid name “Backup OP 5T 2020-01-10”
+
+## ⚠️ Tested compatibility
+### MacOS
+Tested on **macOS 14.6.1 (Apple Silicon)** 
+Verified with both local files on SSD and files on an SMB network drive connected from a **Windows 10** computer on the local network.  
+
+### Linux (Ubuntu, Debian) or CentOS/Fedora
+Operation has not been verified on **Linux**, **CentOS**, or other operating systems, so additional adjustments may be required (e.g., paths, permissions, or differences in command output).
+
+
+
 ## Usage
 
 ### Syntax
@@ -82,6 +100,7 @@ chmod +x merge_dirs.sh
 | `-c` | Move files instead of copying them |
 | `-o <destination>` | Specify destination directory (default: `merge`) |
 | `-d` | Debug mode: show detailed logs of the process |
+| `-f` | Forces the destination directory name if it already exists |
 | `-h` | Show help |
 
 
@@ -258,13 +277,6 @@ Total processed:    156
 ### Debug mode output (-d)
 
 Displays additional information about each processed file, relative paths, and detailed operations.
-
-## Requirements
-
-- **macOS** (tested on Ventura and later)
-- **Bash** 3.2+ (included in macOS by default)
-- Read permissions on source directories
-- Write permissions on destination location
 
 ## Validations
 

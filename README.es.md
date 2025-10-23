@@ -3,6 +3,7 @@
 - [Merge Directories](#merge-Directories)
    * [Características](#características)
    * [Instalación](#instalación)
+   * [Requisitos](#requisitos)
    * [Uso](#uso)
       + [Sintaxis](#sintaxis)
       + [Opciones](#opciones)
@@ -17,7 +18,6 @@
    * [Salida del script](#salida-del-script)
       + [Salida normal](#salida-normal)
       + [Salida en modo debug (-d)](#salida-en-modo-debug-d)
-   * [Requisitos](#requisitos)
    * [Validaciones](#validaciones)
    * [Advertencias](#advertencias)
    * [Solución de problemas](#solución-de-problemas)
@@ -65,6 +65,22 @@ curl -O https://github.com/hunzaGit/merge-directories/main/merge_dirs.sh
 chmod +x merge_dirs.sh
 ```
 
+## Requisitos
+
+- **Bash** 3.2+ (incluido en macOS por defecto)
+- Permisos de lectura en directorios origen
+- Permisos de escritura en ubicación destino
+- No se admiten caracteres raros como "[", "]". Nombre valido "Backup OP 5T 2020-01-10"
+
+## ⚠️ Compatibilidad probada
+### MacOs
+Probado en **macOS 14.6.1 (Apple Silicon)** 
+Verificado tanto con archivos locales en SSD como con archivos en una unidad de red SMB conectada desde un equipo con **Windows 10** en red local.  
+
+### Linux (Ubuntu, Debian) o CentOS/Fedora
+No se ha verificado su funcionamiento en entornos **Linux**, **CentOS** u otros sistemas operativos, por lo que podrían requerirse ajustes adicionales (por ejemplo, rutas, permisos o diferencias en la salida de comandos).
+
+
 ## Uso
 
 ### Sintaxis
@@ -81,6 +97,7 @@ chmod +x merge_dirs.sh
 | `-c` | Mueve archivos en lugar de copiarlos |
 | `-o <destino>` | Especificar directorio destino (default: `merge`) |
 | `-d` | Modo debug: muestra logs detallados del proceso |
+| `-f` | Fuerza el nombre del directorio destino si ya existe |
 | `-h` | Mostrar ayuda |
 
 ### Ejemplos
@@ -256,12 +273,6 @@ Total procesados:    156
 
 Muestra información adicional de cada archivo procesado, rutas relativas, y operaciones detalladas.
 
-## Requisitos
-
-- **macOS** (probado en Ventura y posteriores)
-- **Bash** 3.2+ (incluido en macOS por defecto)
-- Permisos de lectura en directorios origen
-- Permisos de escritura en ubicación destino
 
 ## Validaciones
 

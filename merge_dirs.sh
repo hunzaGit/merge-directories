@@ -9,6 +9,7 @@ set -euo pipefail
 readonly SCRIPT_NAME=$(basename "$0")
 DEBUG=false
 operation="copy"
+force_destination=false
 destination="merge"
 declare -a source_dirs=()
 #declare -A processed_files
@@ -36,6 +37,7 @@ Opciones:
     -m              Mueve archivos en lugar de copiarlos
     -o destino      Directorio destino (por defecto: merge)
     -d              Mostrar información de depuración
+    -f              Fuerza el nombre del directorio destino
     -h              Mostrar esta ayuda
 
 Argumentos:
@@ -56,7 +58,7 @@ log_debug() {    [[ "$DEBUG" == "true" ]] && echo -e "${BLUE}[DEBUG]${NC} $*"; t
 
 # Función para procesar argumentos
 parse_arguments() {
-    while getopts ":cmdo:h" opt; do
+    while getopts ":cmdfo:h" opt; do
         case ${opt} in
             c)
                 operation="copy"
@@ -69,6 +71,9 @@ parse_arguments() {
                 ;;
             d)
                 DEBUG="true"
+                ;;
+            f)
+                force_destination="true"
                 ;;
             h)
                 show_usage
@@ -107,7 +112,7 @@ validate_sources() {
 
 # Función para crear directorio destino
 create_destination() {
-    if [[ -e "${destination}" ]]; then
+    if [[ -e "${destination}" && "${force_destination}" == "false" ]]; then
         log_error "El destino '${destination}' ya existe. Elige otro nombre."
         exit 1
     fi
@@ -136,7 +141,7 @@ process_directory() {
         relative_path=$(get_relative_path "${file}" "${source_dir}")
         dest_file="${destination}/${relative_path}"
         
-        log_debug "Procesando: ${dest_file}"
+        log_debug "Procesando: ${relative_path}"
 
         # Si ya existe, saltar
         if grep -q -x "${relative_path}" "${processed_files_log}"; then
